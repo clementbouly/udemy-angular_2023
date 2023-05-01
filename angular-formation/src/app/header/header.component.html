@@ -17,11 +17,21 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <li><a href="#">Recipe</a></li>
-        <li><a href="#">ShoppingList</a></li>
+        <li
+          (click)="showView(RECIPE_VIEW)"
+          [ngClass]="setActiveView(RECIPE_VIEW)"
+        >
+          <a href="#">Recipe</a>
+        </li>
+        <li
+          (click)="showView(SHOPPING_LIST_VIEW)"
+          [ngClass]="setActiveView(SHOPPING_LIST_VIEW)"
+        >
+          <a href="#">ShoppingList</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <li class="dropdown" appDropdown>
           <a
             class="dropdown-toggle"
             role="button"
