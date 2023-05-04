@@ -5,9 +5,18 @@
     ></app-recipe-list>
   </div>
   <div class="col-md-7">
-    <app-recipe-detail *ngIf="selectedRecipe" [selectedRecipe]="selectedRecipe"></app-recipe-detail>
+    <app-recipe-detail
+      *ngIf="selectedRecipe"
+      [selectedRecipe]="selectedRecipe"
+    ></app-recipe-detail>
     <div *ngIf="!selectedRecipe" class="alert alert-info">
       Select a recipe to see details
     </div>
+    <!-- button -->
+    <button
+      class="btn btn-primary"
+      (click)="testSignal()"
+    >TEST SIGNAL</button>
+    test : {{ count() }}
   </div>
 </div>
