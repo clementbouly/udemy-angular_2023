@@ -5,7 +5,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Recipe } from '../../recipe.model';
+import { Recipe } from '../../../shared/models/recipe.model';
+import { RecipeService } from 'src/app/shared/services/recipe.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -14,4 +15,10 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent {
   @Input() recipe: Recipe;
+
+  constructor(private recipeService: RecipeService) {}
+
+  @HostListener('click') onClick() {
+    this.recipeService.selectRecipe(this.recipe);
+  }
 }

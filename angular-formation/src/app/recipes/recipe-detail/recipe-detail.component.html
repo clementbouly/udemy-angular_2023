@@ -1,42 +1,48 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img
-      [src]="selectedRecipe.imagePath"
-      [alt]="selectedRecipe.name"
-      class="img-responsive"
-    />
-  </div>
+<div *ngIf="!selectedRecipe" class="alert alert-info">
+  Select a recipe to see details
 </div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ selectedRecipe.name }}</h1>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <div class="btn-group" appDropdown>
-      <button class="btn btn-primary dropdown-toggle">
-        Manage Recipe <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#" (click)="onClick($event)">To Shopping List</a></li>
-        <li><a href="#">Edit Recipe</a></li>
-        <li><a href="#">Delete Recipe</a></li>
-      </ul>
+<div *ngIf="selectedRecipe">
+  <div class="row">
+    <div class="col-xs-12">
+      <img
+        [src]="selectedRecipe.imagePath"
+        [alt]="selectedRecipe.name"
+        class="img-responsive"
+      />
     </div>
   </div>
-</div>
-<!-- row for description -->
-<div class="row">
-  <div class="col-xs-12">
-    <h4>{{ selectedRecipe.description }}</h4>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{ selectedRecipe.name }}</h1>
+    </div>
   </div>
-</div>
-<!-- ingredients -->
-<div class="row">
-  <div class="col-xs-12">
-    <h4>ingredients</h4>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="btn-group" appDropdown>
+        <button class="btn btn-primary dropdown-toggle">
+          Manage Recipe <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#" (click)="onClick($event)">To Shopping List</a></li>
+          <li><a href="#">Edit Recipe</a></li>
+          <li><a href="#">Delete Recipe</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- row for description -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>{{ selectedRecipe.description }}</h4>
+    </div>
+  </div>
+  <!-- ingredients -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>ingredients</h4>
+    </div>
   </div>
 </div>

@@ -1,22 +1,14 @@
 <div class="row">
   <div class="col-md-5">
-    <app-recipe-list
-      (onRecipeSelected)="onRecipeSelected($event)"
-    ></app-recipe-list>
+    <app-recipe-list></app-recipe-list>
   </div>
   <div class="col-md-7">
-    <app-recipe-detail
-      *ngIf="selectedRecipe"
-      [selectedRecipe]="selectedRecipe"
-    ></app-recipe-detail>
-    <div *ngIf="!selectedRecipe" class="alert alert-info">
-      Select a recipe to see details
-    </div>
-    <!-- button -->
-    <button
+    <app-recipe-detail></app-recipe-detail>
+    <!-- button for signal test -->
+    <!-- <button
       class="btn btn-primary"
       (click)="testSignal()"
     >TEST SIGNAL</button>
-    test : {{ count() }}
+    test : {{ count() }} -->
   </div>
 </div>

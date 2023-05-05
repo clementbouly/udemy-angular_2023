@@ -1,5 +1,5 @@
 import { Component, WritableSignal, effect, signal } from '@angular/core';
-import { Recipe } from './recipe.model';
+import { Recipe } from '../shared/models/recipe.model';
 
 @Component({
   selector: 'app-recipes',
@@ -7,17 +7,12 @@ import { Recipe } from './recipe.model';
   styleUrls: ['./recipes.component.scss'],
 })
 export class RecipesComponent {
-  selectedRecipe: Recipe;
   count: WritableSignal<number> = signal(0);
 
   constructor() {
-    effect(() => {
-      console.log(`The count is: ${this.count()}`);
-    });
-  }
-
-  onRecipeSelected(recipe: Recipe) {
-    this.selectedRecipe = recipe;
+    // effect(() => {
+    //   console.log(`The count is: ${this.count()}`);
+    // });
   }
 
   testSignal() {

@@ -1,16 +1,20 @@
-import { Component, Input } from '@angular/core';
-import { Recipe } from '../recipe.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { Recipe } from '../../shared/models/recipe.model';
+import { RecipeService } from 'src/app/shared/services/recipe.service';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
 })
-export class RecipeDetailComponent {
-  @Input() selectedRecipe: Recipe;
-  ngOnInit() {}
+export class RecipeDetailComponent implements OnInit {
+  selectedRecipe: Recipe;
 
-  onClick(event) {
-    console.log(event.target.innerText);
+  constructor(private recipeService: RecipeService) {}
+
+  ngOnInit() {
+    this.recipeService.recipeUpdated.subscribe((recipe: Recipe) => {
+      this.selectedRecipe = recipe;
+    });
   }
 }
