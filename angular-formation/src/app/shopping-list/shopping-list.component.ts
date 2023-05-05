@@ -8,11 +8,12 @@ import { ShoppingListService } from '../shared/services/shopping-list.service';
   styleUrls: ['./shopping-list.component.scss'],
 })
 export class ShoppingListComponent {
-  ingredients: Ingredient[] = this.shoppingService.ingredients;
+  ingredients: Ingredient[];
 
   constructor(private shoppingService: ShoppingListService) {}
 
-  onIngredientAdded(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
+  ngOnInit() {
+    this.ingredients = this.shoppingService.getIngredients();
+    this.shoppingService;
   }
 }
