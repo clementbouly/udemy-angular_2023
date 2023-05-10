@@ -5,11 +5,9 @@ import { Recipe } from '../models/recipe.model';
   providedIn: 'root',
 })
 export class RecipeService {
-  private selectedRecipe: Recipe;
-  recipeUpdated = new EventEmitter<Recipe>();
-
   private recipes: Recipe[] = [
     {
+      id: 1,
       name: 'A Test Recipe',
       description: 'This is simply a test',
       imagePath:
@@ -20,6 +18,7 @@ export class RecipeService {
       ],
     },
     {
+      id: 2,
       name: 'Vegetable Soup',
       description: 'A delicious soup with vegetables',
       imagePath:
@@ -33,23 +32,11 @@ export class RecipeService {
 
   constructor() {}
 
-  getSelectedRecipe() {
-    return this.selectedRecipe;
-  }
-
   getRecipes() {
     return [...this.recipes];
   }
 
-  selectRecipe(recipe: Recipe) {
-    this.selectedRecipe = recipe;
-    this.recipes = this.recipes.map((recipe) => {
-      if (recipe === this.selectedRecipe) {
-        return { ...recipe, selected: true };
-      } else {
-        return { ...recipe, selected: false };
-      }
-    });
-    this.recipeUpdated.emit(recipe);
+  getRecipeById(id: number) {
+    return this.recipes.find((recipe) => recipe.id === id);
   }
 }

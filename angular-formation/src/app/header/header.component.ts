@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { DEFAULT_VIEW, VIEW_TYPES, ViewType } from '../shared/models/views.model';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,18 +7,8 @@ import { DEFAULT_VIEW, VIEW_TYPES, ViewType } from '../shared/models/views.model
 })
 export class HeaderComponent {
   collapsed = true;
-  @Output() viewSelected = new EventEmitter<ViewType>();
-  currentView: ViewType = DEFAULT_VIEW;
-
-  RECIPE_VIEW = VIEW_TYPES.RECIPE;
-  SHOPPING_LIST_VIEW = VIEW_TYPES.SHOPPING_LIST;
-
-  showView(view: ViewType) {
-    this.viewSelected.emit(view);
-    this.currentView = view;
-  }
-
-  setActiveView(view: string) {
-    return this.currentView === view ? 'active' : '';
-  }
+  navLinks = [
+    { path: '/recipes', label: 'Recipes' },
+    { path: '/shopping-list', label: 'Shopping List' },
+  ];
 }

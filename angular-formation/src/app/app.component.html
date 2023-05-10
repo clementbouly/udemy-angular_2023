@@ -1,9 +1,8 @@
-<app-header (viewSelected)="onViewSelected($event)"></app-header>
+<app-header></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes *ngIf="displayView(VIEW_TYPES.RECIPE)" />
-      <app-shopping-list *ngIf="displayView(VIEW_TYPES.SHOPPING_LIST)" />
+      <router-outlet />
     </div>
   </div>
 </div>

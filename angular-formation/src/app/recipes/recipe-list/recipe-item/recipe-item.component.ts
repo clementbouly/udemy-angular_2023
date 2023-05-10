@@ -17,8 +17,4 @@ export class RecipeItemComponent {
   @Input() recipe: Recipe;
 
   constructor(private recipeService: RecipeService) {}
-
-  @HostListener('click') onClick() {
-    this.recipeService.selectRecipe(this.recipe);
-  }
 }

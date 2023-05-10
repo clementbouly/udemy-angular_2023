@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../../shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { ShoppingListService } from 'src/app/shared/services/shopping-list.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -13,13 +14,14 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.selectedRecipe = this.recipeService.getSelectedRecipe();
-    this.recipeService.recipeUpdated.subscribe((recipe: Recipe) => {
-      this.selectedRecipe = recipe;
+    this.activatedRoute.params.subscribe((params) => {
+      const id = +params.id;
+      this.selectedRecipe = this.recipeService.getRecipeById(id);
     });
   }
 
