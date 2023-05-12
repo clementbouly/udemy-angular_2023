@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Recipe } from '../../../shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 

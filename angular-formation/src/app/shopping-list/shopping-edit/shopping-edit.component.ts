@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { ShoppingListService } from 'src/app/shared/services/shopping-list.service';
 

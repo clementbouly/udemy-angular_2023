@@ -14,6 +14,5 @@ export class ShoppingListComponent {
 
   ngOnInit() {
     this.ingredients = this.shoppingService.getIngredients();
-    this.shoppingService;
   }
 }
