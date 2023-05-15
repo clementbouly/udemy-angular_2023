@@ -1,0 +1,15 @@
+.container {
+  margin-top: 30px;
+}
+
+.hobbies {
+  display: flex;
+  gap: 1rem;
+  /* center verticaly */
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.hobbies > span {
+  cursor: pointer;
+}

@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            [formControlName]="formControlNames.username"
+          />
+          <!-- error message for forbidden username -->
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              signupForm.get(formControlNames.username).errors
+                ?.nameIsForbidden &&
+              signupForm.get(formControlNames.username).touched
+            "
+          >
+            This username are forbidden {{ forbiddenUsernames | json }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">email</label>
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            (input)="onEmailChange()"
+          />
+        </div>
+        <!-- email error message -->
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            signupForm.get(formControlNames.email).invalid &&
+            signupForm.get(formControlNames.email).touched
+          "
+        >
+          <p *ngIf="signupForm.get(formControlNames.email).errors.required">
+            Email is required
+          </p>
+          <p *ngIf="signupForm.get(formControlNames.email).errors.email">
+            Email is invalid
+          </p>
+          <p
+            *ngIf="
+              signupForm.get(formControlNames.email).errors?.emailIsForbidden
+            "
+          >
+            Email is forbidden
+          </p>
+        </div>
+
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" [value]="gender" formControlName="gender" />{{
+              gender
+            }}
+          </label>
+        </div>
+        <div>
+          <h4>Your Hobbies</h4>
+          <!-- button to add hobbie -->
+          <button class="btn btn-primary" type="button" (click)="onAddHobby()">
+            Add Hobby
+          </button>
+          <!-- hobbies -->
+          <div
+            class="form-group hobbies"
+            *ngFor="let hobbyControl of controls; let i = index"
+          >
+            <input
+              type="text"
+              class="form-control"
+              [formControl]="hobbyControl"
+            />
+            <span
+              class="glyphicon glyphicon-remove"
+              (click)="onRemoveHobby(i)"
+            ></span>
+          </div>
+        </div>
+        <hr />
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="signupForm.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
