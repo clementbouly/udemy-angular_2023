@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 
@@ -16,6 +16,7 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private recipeService: RecipeService
   ) {}
 
@@ -69,12 +70,15 @@ export class RecipeEditComponent implements OnInit {
       } else {
         this.recipeService.addRecipe(recipe);
       }
+
+      this.router.navigate(['/recipes']);
     } else {
       console.error('Form is invalid');
     }
   }
 
   onDelete() {
-    console.log('onDelete');
+    this.recipeService.deleteRecipe(this.recipeEdited.id);
+    this.router.navigate(['/recipes']);
   }
 }

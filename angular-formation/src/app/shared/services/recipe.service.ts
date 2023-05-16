@@ -53,4 +53,13 @@ export class RecipeService {
     this.recipes[index] = recipe;
     this.$recipes.next(this.recipes);
   }
+
+  deleteRecipe(id: number) {
+    const index = this.recipes.findIndex((r) => r.id === id);
+    if (index === -1) {
+      throw new Error(`Recipe with id ${id} not found`);
+    }
+    this.recipes.splice(index, 1);
+    this.$recipes.next(this.recipes);
+  }
 }
