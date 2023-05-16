@@ -1,6 +1,61 @@
-<!-- if editMode true EDIT RECIPE else NEW RECIPE" -->
 <div class="row">
   <div class="col-xs-12">
     <h1>{{ editMode ? "Edit" : "New" }} Recipe</h1>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 form-group">
+          <label for="imagePath">Image URL</label>
+          <input
+            type="text"
+            id="imagePath"
+            class="form-control"
+            formControlName="imagePath"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            rows="6"
+            class="form-control"
+            formControlName="description"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="btn-group">
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!recipeForm.valid"
+            >
+              {{ editMode ? "Update" : "Create" }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              *ngIf="editMode"
+              (click)="onDelete()"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

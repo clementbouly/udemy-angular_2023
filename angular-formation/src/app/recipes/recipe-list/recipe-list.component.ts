@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
@@ -8,10 +9,10 @@ import { RecipeService } from 'src/app/shared/services/recipe.service';
   styleUrls: ['./recipe-list.component.scss'],
 })
 export class RecipeListComponent implements OnInit {
-  recipes: Recipe[] = [];
+  $recipes: Observable<Recipe[]>;
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
-    this.recipes = this.recipeService.getRecipes();
+    this.$recipes = this.recipeService.getRecipes();
   }
 }
