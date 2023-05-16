@@ -3,6 +3,8 @@ import { Recipe } from '../../shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { ShoppingListService } from 'src/app/shared/services/shopping-list.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -11,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RecipeDetailComponent implements OnInit {
   selectedRecipe: Recipe;
+  $ingredients: Observable<Ingredient[]>;
 
   constructor(
     private recipeService: RecipeService,
@@ -23,6 +26,7 @@ export class RecipeDetailComponent implements OnInit {
       const id = +params.id;
       this.selectedRecipe = this.recipeService.getRecipeById(id);
     });
+    this.$ingredients = this.shoppingListService.getIngredients();
   }
 
   onAddToShoppingList() {

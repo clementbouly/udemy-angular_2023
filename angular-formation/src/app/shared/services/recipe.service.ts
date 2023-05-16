@@ -13,8 +13,8 @@ export class RecipeService {
       imagePath:
         'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574',
       ingredients: [
-        { name: 'Meat', amount: 1 },
-        { name: 'French Fries', amount: 20 },
+        { id: 5, name: 'Meat', amount: 1 },
+        { id: 6, name: 'French Fries', amount: 20 },
       ],
     },
     {
@@ -24,8 +24,8 @@ export class RecipeService {
       imagePath:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzGbx87i8TCsYsbiuPxv9Eios1qhpPTdVbg&usqp=CAU',
       ingredients: [
-        { name: 'Carrots', amount: 5 },
-        { name: 'Potatoes', amount: 10 },
+        { id: 7, name: 'Carrots', amount: 5 },
+        { id: 8, name: 'Potatoes', amount: 10 },
       ],
     },
   ];
