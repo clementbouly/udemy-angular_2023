@@ -16,6 +16,7 @@ export class RecipeService {
       ingredients: [
         { id: 5, name: 'Meat', amount: 1 },
         { id: 6, name: 'French Fries', amount: 20 },
+        { id: 7, name: 'Carrots', amount: 5 },
       ],
     },
     {
