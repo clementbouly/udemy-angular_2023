@@ -131,13 +131,12 @@ import { RecipeService } from 'src/app/shared/services/recipe.service';
 })
 export class RecipeEditComponent implements OnInit {
   editMode = false;
-  recipeId: number;
+  recipeId: string;
   recipeForm: FormGroup;
   randomId: number = Math.floor(Math.random() * 1000) + 1;
   recipeEdited: Recipe = {
-    id: this.randomId,
-    name: '',
-    description: '',
+    name: 'Test Recipe',
+    description: 'Test Description',
     imagePath: 'https://picsum.photos/400',
     ingredients: [],
   };
@@ -153,7 +152,7 @@ export class RecipeEditComponent implements OnInit {
       this.editMode = params.id !== null && params.id !== undefined;
 
       if (params.id) {
-        this.recipeId = +params.id;
+        this.recipeId = params.id;
       }
       this.initForm();
     });
@@ -161,7 +160,10 @@ export class RecipeEditComponent implements OnInit {
 
   initForm() {
     if (this.editMode) {
-      this.recipeEdited = this.recipeService.getRecipeById(this.recipeId);
+      this.recipeService.getRecipeById(this.recipeId).subscribe((recipe) => {
+        this.recipeEdited = recipe;
+        this.setFormValues(this.recipeEdited);
+      });
     }
 
     this.setFormValues(this.recipeEdited);
@@ -210,7 +212,6 @@ export class RecipeEditComponent implements OnInit {
         });
       } else {
         this.recipeService.addRecipe({
-          id: this.randomId,
           ...this.recipeForm.value,
         });
       }

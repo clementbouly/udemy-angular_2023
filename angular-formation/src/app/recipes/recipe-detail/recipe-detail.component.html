@@ -17,10 +17,21 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <div class="btn-group" appDropdown>
-        <button class="btn btn-primary dropdown-toggle">
-          Manage Recipe <span class="caret"></span>
-        </button>
+      <div appDropdown>
+        <div class="btn-group">
+          <button class="btn btn-primary dropdown-toggle">
+            Manage Recipe <span class="caret"></span>
+          </button>
+          <!-- delete button -->
+          <button
+            class="btn btn-danger"
+            (click)="onDeleteRecipe()"
+            *ngIf="selectedRecipe"
+          >
+            Delete
+          </button>
+        </div>
+
         <ul class="dropdown-menu">
           <li><a (click)="onAddToShoppingList()">To Shopping List</a></li>
           <li><a routerLink="edit">Edit Recipe</a></li>

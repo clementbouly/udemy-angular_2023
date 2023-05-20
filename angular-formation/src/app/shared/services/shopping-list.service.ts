@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../models/ingredient.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +17,24 @@ export class ShoppingListService {
   private $ingredients = new BehaviorSubject<Ingredient[]>(this.ingredients);
   $ingredientEdited = new Subject<Ingredient>();
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getIngredients() {
+    // return this.http
+    //   .get<Ingredient[]>(
+    //     'https://ng-http-request-training-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json'
+    //   )
+    //   .pipe(
+    //     map((response) => {
+    //       if (!response) {
+    //         return [];
+    //       }
+    //       return Object.entries(response).map(([key, value]) => {
+    //         return { ...value, id: key };
+    //       });
+    //     })
+    //   );
+
     return this.$ingredients.asObservable();
   }
 

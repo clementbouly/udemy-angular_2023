@@ -24,10 +24,12 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
-      const id = +params.id;
-      this.selectedRecipe = this.recipeService.getRecipeById(id);
+      const id = params.id;
+      this.recipeService.getRecipeById(id).subscribe((recipe) => {
+        this.selectedRecipe = recipe;
+      });
     });
-    this.$ingredients = this.shoppingListService.getIngredients();
+    // this.$ingredients = this.shoppingListService.getIngredients();
   }
 
   onAddToShoppingList() {
@@ -35,7 +37,11 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService.deleteRecipe(this.selectedRecipe.id);
-    this.router.navigate(['/recipes']);
+    this.recipeService
+      .deleteRecipe(this.selectedRecipe.id)
+      .subscribe((response) => {
+        this.router.navigate(['/recipes']);
+        this.recipeService.$recipesUpdate.next();
+      });
   }
 }

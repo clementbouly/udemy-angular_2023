@@ -1,7 +1,7 @@
 import { Ingredient } from './ingredient.model';
 
 export type Recipe = {
-  id: number;
+  id?: string;
   name: string;
   description: string;
   imagePath: string;
