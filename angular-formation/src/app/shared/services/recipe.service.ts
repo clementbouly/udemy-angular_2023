@@ -9,7 +9,7 @@ export class RecipeService {
   private recipes: Recipe[] = [
     {
       id: 1,
-      name: 'A Test Recipe',
+      name: 'A test Recipe',
       description: 'This is simply a test',
       imagePath:
         'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574',
