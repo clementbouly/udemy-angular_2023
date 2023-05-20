@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../models/recipe.model';
-import { BehaviorSubject, Subject, map, tap } from 'rxjs';
+import { BehaviorSubject, Subject, delay, map, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -50,7 +50,8 @@ export class RecipeService {
         return Object.entries(response).map(([key, value]) => {
           return { ...value, id: key };
         });
-      })
+      }),
+      delay(1000)
     );
   }
 

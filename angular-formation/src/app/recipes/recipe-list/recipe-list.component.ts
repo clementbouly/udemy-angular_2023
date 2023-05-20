@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
@@ -10,12 +10,18 @@ import { Observable } from 'rxjs';
 })
 export class RecipeListComponent implements OnInit {
   $recipes: Observable<Recipe[]>;
+  isLoading = false;
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
-    this.$recipes = this.recipeService.getRecipes();
-    this.recipeService.$recipesUpdate.subscribe(() => {
-      this.$recipes = this.recipeService.getRecipes();
-    });
+    this.initRecipes();
+    this.recipeService.$recipesUpdate.subscribe(() => this.initRecipes());
+  }
+
+  initRecipes() {
+    this.isLoading = true;
+    this.$recipes = this.recipeService
+      .getRecipes()
+      .pipe(tap({ complete: () => (this.isLoading = false) }));
   }
 }
