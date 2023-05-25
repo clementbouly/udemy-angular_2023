@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
@@ -9,19 +9,25 @@ import { Observable, tap } from 'rxjs';
   styleUrls: ['./recipe-list.component.scss'],
 })
 export class RecipeListComponent implements OnInit {
-  $recipes: Observable<Recipe[]>;
+  recipes$: Observable<Recipe[]>;
   isLoading = false;
+  errorMessage: string;
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
     this.initRecipes();
-    this.recipeService.$recipesUpdate.subscribe(() => this.initRecipes());
+    this.recipeService.recipesUpdate.subscribe(() => this.initRecipes());
   }
 
   initRecipes() {
     this.isLoading = true;
-    this.$recipes = this.recipeService
-      .getRecipes()
-      .pipe(tap({ complete: () => (this.isLoading = false) }));
+    this.recipes$ = this.recipeService.getRecipes().pipe(
+      catchError((error) => {
+        console.error('error retreving recipes : ', error);
+        this.errorMessage = `Error retreving recipes : ${error.error.error}`;
+        return of([]);
+      }),
+      tap({ complete: () => (this.isLoading = false) })
+    );
   }
 }

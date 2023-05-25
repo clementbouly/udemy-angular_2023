@@ -20,3 +20,8 @@
 a {
   cursor: pointer;
 }
+
+.loader-container {
+  display: grid;
+  place-content: center;
+}

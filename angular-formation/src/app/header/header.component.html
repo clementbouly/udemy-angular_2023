@@ -18,10 +18,18 @@
     >
       <ul class="nav navbar-nav">
         <li routerLinkActive="active" *ngFor="let navLink of navLinks">
-          <a routerLink="{{ navLink.path }}">{{ navLink.label }}</a>
+          <a routerLink="{{ navLink.path }}" *ngIf="canDisplayLink(navLink)">{{
+            navLink.label
+          }}</a>
         </li>
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="isAuthentificated">
+          <button (click)="onLogout()" class="btn btn-danger navbar-btn">
+            Logout
+          </button>
+        </li>
         <li class="dropdown" appDropdown>
           <a class="dropdown-toggle" role="button" data-toggle="dropdown"
             >Manage <span class="caret"></span

@@ -9,12 +9,12 @@ import { Observable, Subscription, filter, map, tap } from 'rxjs';
   styleUrls: ['./shopping-list.component.scss'],
 })
 export class ShoppingListComponent {
-  $ingredients: Observable<Ingredient[]>;
+  ingredients$: Observable<Ingredient[]>;
 
   constructor(private shoppingService: ShoppingListService) {}
 
   ngOnInit() {
-    this.$ingredients = this.shoppingService.getIngredients();
+    this.ingredients$ = this.shoppingService.getIngredients();
   }
 
   onEditItem(ingredient: Ingredient) {

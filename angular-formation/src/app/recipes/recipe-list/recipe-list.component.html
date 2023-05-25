@@ -12,8 +12,12 @@
 <div class="row">
   <div class="col-xs-12">
     <app-recipe-item
-      *ngFor="let recipe of $recipes | async"
+      *ngFor="let recipe of recipes$ | async"
       [recipe]="recipe"
     ></app-recipe-item>
+    <!-- if errorMessage show warning div -->
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
   </div>
 </div>

@@ -14,7 +14,7 @@ export class ShoppingListService {
     { name: 'Bananas', amount: 0, id: 4 },
   ];
 
-  private $ingredients = new BehaviorSubject<Ingredient[]>(this.ingredients);
+  private ingredients$ = new BehaviorSubject<Ingredient[]>(this.ingredients);
   $ingredientEdited = new Subject<Ingredient>();
 
   constructor(private http: HttpClient) {}
@@ -35,12 +35,12 @@ export class ShoppingListService {
     //     })
     //   );
 
-    return this.$ingredients.asObservable();
+    return this.ingredients$.asObservable();
   }
 
   addIngredient(ingredient: Ingredient) {
     this.addIngredientOrUpdateAmount(ingredient);
-    this.$ingredients.next(this.ingredients);
+    this.ingredients$.next(this.ingredients);
     console.log(this.ingredients);
   }
 
@@ -50,7 +50,7 @@ export class ShoppingListService {
     if (index !== -1) {
       this.ingredients.splice(index, 1);
     }
-    this.$ingredients.next(this.ingredients);
+    this.ingredients$.next(this.ingredients);
   }
 
   updateIngredient(ingredient: Ingredient) {
@@ -61,7 +61,7 @@ export class ShoppingListService {
     if (index !== -1) {
       this.ingredients[index] = ingredient;
 
-      this.$ingredients.next(this.ingredients);
+      this.ingredients$.next(this.ingredients);
     }
   }
 

@@ -1,0 +1,8 @@
+.login {
+    width: min(40rem, 90vw);
+}
+
+:host {
+  display: grid;
+  place-content: center;
+}

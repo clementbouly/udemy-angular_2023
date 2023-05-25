@@ -13,7 +13,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.model';
 })
 export class RecipeDetailComponent implements OnInit {
   selectedRecipe: Recipe;
-  $ingredients: Observable<Ingredient[]>;
+  ingredients$: Observable<Ingredient[]>;
 
   constructor(
     private recipeService: RecipeService,
@@ -29,7 +29,7 @@ export class RecipeDetailComponent implements OnInit {
         this.selectedRecipe = recipe;
       });
     });
-    // this.$ingredients = this.shoppingListService.getIngredients();
+    // this.ingredients$ = this.shoppingListService.getIngredients();
   }
 
   onAddToShoppingList() {
@@ -41,7 +41,7 @@ export class RecipeDetailComponent implements OnInit {
       .deleteRecipe(this.selectedRecipe.id)
       .subscribe((response) => {
         this.router.navigate(['/recipes']);
-        this.recipeService.$recipesUpdate.next();
+        this.recipeService.recipesUpdate.next();
       });
   }
 }

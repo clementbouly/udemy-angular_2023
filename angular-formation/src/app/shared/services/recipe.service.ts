@@ -35,9 +35,9 @@ export class RecipeService {
     // },
   ];
 
-  $recipesUpdate: Subject<void> = new Subject<void>();
+  recipesUpdate: Subject<void> = new Subject<void>();
 
-  $recipes = new BehaviorSubject<Recipe[]>(this.recipes);
+  recipes$ = new BehaviorSubject<Recipe[]>(this.recipes);
 
   constructor(private http: HttpClient) {}
 
@@ -67,7 +67,7 @@ export class RecipeService {
     return this.http
       .post(`${this.API_URL}/recipes.json`, recipe)
       .subscribe((response) => {
-        this.$recipesUpdate.next();
+        this.recipesUpdate.next();
       });
   }
 
@@ -75,7 +75,7 @@ export class RecipeService {
     return this.http
       .put(`${this.API_URL}/recipes/${recipe.id}.json`, recipe)
       .subscribe((response) => {
-        this.$recipesUpdate.next();
+        this.recipesUpdate.next();
       });
   }
 
