@@ -28,6 +28,7 @@ export type AuthResponseData = {
 export class AuthServiceService {
   AUTH_URL = 'https://identitytoolkit.googleapis.com/v1/accounts';
   userLogged$ = new BehaviorSubject<User>(null);
+  tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -76,7 +77,41 @@ export class AuthServiceService {
 
   logout() {
     this.userLogged$.next(null);
+    localStorage.removeItem('userData');
     this.router.navigate(['/login']);
+
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
+  }
+
+  autoLogin() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+
+    const user = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+
+    if (user.token) {
+      this.userLogged$.next(user);
+      const expirationDuration =
+        new Date(userData._tokenExpirationDate).getTime() -
+        new Date().getTime();
+      this.autoLogout(expirationDuration);
+    }
   }
 
   saveLoggedUser(
@@ -85,13 +120,19 @@ export class AuthServiceService {
     idToken: string,
     expiresIn: string
   ) {
-    const userLogged$ = new User(
+    const user = new User(
       email,
       localId,
       idToken,
       new Date(new Date().getTime() + +expiresIn * 1000)
     );
-    this.userLogged$.next(userLogged$);
+    this.userLogged$.next(user);
+    this.autoLogout(+expiresIn * 1000);
+    localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+  isAuthenticated() {
+    return !!this.userLogged$.value;
   }
 
   getErrorMessage(error) {
