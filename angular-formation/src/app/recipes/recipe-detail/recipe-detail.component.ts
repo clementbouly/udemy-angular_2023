@@ -14,6 +14,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.model';
 export class RecipeDetailComponent implements OnInit {
   selectedRecipe: Recipe;
   ingredients$: Observable<Ingredient[]>;
+  @Input('id') recipeId?: string;
 
   constructor(
     private recipeService: RecipeService,
@@ -23,13 +24,14 @@ export class RecipeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log('this.recipeId', this.recipeId);
+
     this.activatedRoute.params.subscribe((params) => {
       const id = params.id;
       this.recipeService.getRecipeById(id).subscribe((recipe) => {
         this.selectedRecipe = recipe;
       });
     });
-    // this.ingredients$ = this.shoppingListService.getIngredients();
   }
 
   onAddToShoppingList() {

@@ -1,3 +1,5 @@
+<ng-template appPlaceholder></ng-template>
+
 <!-- login form -->
 <div class="login">
   <h1>Login</h1>
@@ -26,28 +28,32 @@
         placeholder="Password"
       />
     </div>
-    <button
-      [disabled]="loginForm.invalid"
-      type="submit"
-      class="btn btn-primary"
-    >
-      Login
-    </button>
-    <!-- logout -->
-    <button type="button" class="btn btn-danger" (click)="onLogout()">
-      Logout
-    </button>
-    <button
-      [disabled]="loginForm.invalid"
-      type="button"
-      class="btn btn-warning"
-      (click)="onRegister()"
-    >
-      Register
-    </button>
-    <hr />
-    <div class="alert alert-danger" *ngIf="errorMessage">
-      {{ errorMessage }}
+    <div class="btn-group">
+      <button
+        [disabled]="loginForm.invalid"
+        type="submit"
+        class="btn btn-primary"
+      >
+        Login
+      </button>
+      <!-- logout -->
+      <button type="button" class="btn btn-danger" (click)="onLogout()">
+        Logout
+      </button>
+      <button
+        [disabled]="loginForm.invalid"
+        type="button"
+        class="btn btn-warning"
+        (click)="onRegister()"
+      >
+        Register
+      </button>
     </div>
+    <hr />
+    <!-- <app-alert
+      *ngIf="errorMessage"
+      [message]="errorMessage"
+      (close)="onHandleError()"
+    /> -->
   </form>
 </div>

@@ -20,6 +20,8 @@ import { IngredientFormatPipe } from './ingredient-format.pipe';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     IngredientFormatPipe,
     AuthComponent,
     LoadingSpinnerComponent,
+    AlertComponent,
+    PlaceholderDirective,
   ],
   imports: [
     BrowserModule,

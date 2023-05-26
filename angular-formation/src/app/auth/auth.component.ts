@@ -1,19 +1,30 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from './auth-service.service';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
+  @ViewChild(PlaceholderDirective, { static: true })
+  alertHost!: PlaceholderDirective;
+
   loginForm: FormGroup;
   isLoggedIn = false;
   isLoading = false;
   errorMessage: string;
+  private closeSub: Subscription;
 
   constructor(private authService: AuthServiceService, private router: Router) {
     this.loginForm = new FormGroup({
@@ -42,6 +53,7 @@ export class AuthComponent {
         },
         error: (errorMessage) => {
           this.errorMessage = errorMessage;
+          this.showErrorAlert(errorMessage);
         },
       });
   }
@@ -68,5 +80,28 @@ export class AuthComponent {
 
   onLogout() {
     this.authService.logout();
+  }
+
+  onHandleError() {
+    this.errorMessage = null;
+  }
+
+  private showErrorAlert(errorMessage: string) {
+    console.log(this.alertHost);
+
+    const hostViewContainerRef = this.alertHost?.viewContainerRef;
+    hostViewContainerRef.clear();
+    const componentRef =
+      hostViewContainerRef.createComponent<AlertComponent>(AlertComponent);
+    componentRef.instance.message = errorMessage;
+    // listen to the close event
+    this.closeSub = componentRef.instance.close.subscribe(() => {
+      hostViewContainerRef.clear();
+      this.closeSub?.unsubscribe();
+    });
+  }
+
+  ngOnDestroy() {
+    this.closeSub?.unsubscribe();
   }
 }
