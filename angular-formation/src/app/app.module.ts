@@ -6,48 +6,24 @@ import { AppComponent } from './app.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
-import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { AppRoutingModule } from './app-routing.module';
-import { NoRecipeComponent } from './recipes/no-recipe/no-recipe.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-import { IngredientFormatPipe } from './ingredient-format.pipe';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
-import { AlertComponent } from './shared/alert/alert.component';
-import { PlaceholderDirective } from './shared/directives/placeholder.directive';
+import { RecipesModule } from './recipes/recipes.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    ShoppingListComponent,
-    RecipeListComponent,
-    RecipeItemComponent,
-    RecipeDetailComponent,
-    ShoppingEditComponent,
-    RecipesComponent,
-    DropdownDirective,
-    NoRecipeComponent,
-    RecipeEditComponent,
-    IngredientFormatPipe,
-    AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent,
-    PlaceholderDirective,
-  ],
+  declarations: [AppComponent, HeaderComponent, AuthComponent],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RecipesModule,
+    ShoppingListModule,
+    SharedModule,
   ],
   providers: [
     {
@@ -58,4 +34,4 @@ import { PlaceholderDirective } from './shared/directives/placeholder.directive'
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -70,8 +70,7 @@ export class AuthServiceService {
             response.idToken,
             response.expiresIn
           );
-        }),
-        delay(1000)
+        })
       );
   }
 

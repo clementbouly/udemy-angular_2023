@@ -50,8 +50,7 @@ export class RecipeService {
         return Object.entries(response).map(([key, value]) => {
           return { ...value, id: key };
         });
-      }),
-      delay(1000)
+      })
     );
   }
 
