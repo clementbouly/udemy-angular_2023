@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 
@@ -137,7 +136,7 @@ export class RecipeEditComponent implements OnInit {
   recipeEdited: Recipe = {
     name: 'Test Recipe',
     description: 'Test Description',
-    imagePath: 'https://picsum.photos/400',
+    imagePath: `https://picsum.photos/400`,
     ingredients: [],
   };
 
@@ -145,7 +144,7 @@ export class RecipeEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private recipeService: RecipeService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Ingredient } from '../shared/models/ingredient.model';
 import { ShoppingListService } from '../shared/services/shopping-list.service';
-import { Observable, Subscription, filter, map, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
@@ -11,7 +11,7 @@ import { Observable, Subscription, filter, map, tap } from 'rxjs';
 export class ShoppingListComponent {
   ingredients$: Observable<Ingredient[]>;
 
-  constructor(private shoppingService: ShoppingListService) {}
+  constructor(private shoppingService: ShoppingListService) { }
 
   ngOnInit() {
     this.ingredients$ = this.shoppingService.getIngredients();

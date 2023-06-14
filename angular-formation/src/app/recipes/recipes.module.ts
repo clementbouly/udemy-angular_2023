@@ -28,9 +28,12 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     RecipeRoutingModule,
     SharedModule,
-
   ],
   exports: [],
   providers: [],
 })
-export class RecipesModule { }
+export class RecipesModule {
+  constructor() {
+    console.log('RecipesModule loaded');
+  }
+}
