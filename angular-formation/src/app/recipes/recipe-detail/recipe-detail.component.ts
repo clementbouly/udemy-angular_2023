@@ -21,16 +21,21 @@ export class RecipeDetailComponent implements OnInit {
     private shoppingListService: ShoppingListService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
-    console.log('this.recipeId', this.recipeId);
-
     this.activatedRoute.params.subscribe((params) => {
       const id = params.id;
-      this.recipeService.getRecipeById(id).subscribe((recipe) => {
-        this.selectedRecipe = recipe;
-      });
+      this.setSelectedRecipe(id);
+    });
+    this.recipeService.recipesUpdate.subscribe(() => {
+      this.setSelectedRecipe(this.recipeId);
+    });
+  }
+
+  setSelectedRecipe(id: string) {
+    this.recipeService.getRecipeById(id).subscribe((recipe) => {
+      this.selectedRecipe = recipe;
     });
   }
 
