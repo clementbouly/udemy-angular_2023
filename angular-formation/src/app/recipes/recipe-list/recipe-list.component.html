@@ -4,7 +4,7 @@
   </div>
 </div>
 <hr />
-<div class="row" *ngIf="isLoading">
+<div class="row" *ngIf="isLoading | async">
   <div class="col-xs-12">
     <div class="loader"></div>
   </div>

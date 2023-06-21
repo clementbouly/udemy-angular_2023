@@ -28,7 +28,7 @@ export class RecipeDetailComponent implements OnInit {
       const id = params.id;
       this.setSelectedRecipe(id);
     });
-    this.recipeService.recipesUpdate.subscribe(() => {
+    this.recipeService.recipes$.subscribe((recipes) => {
       this.setSelectedRecipe(this.recipeId);
     });
   }
@@ -44,11 +44,18 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService
-      .deleteRecipe(this.selectedRecipe.id)
-      .subscribe((response) => {
+    this.recipeService.deleteRecipe(this.selectedRecipe.id).subscribe({
+      next: () => {
+        this.recipeService.recipes$.next(
+          this.recipeService.recipes$.value.filter(
+            (r) => r.id !== this.selectedRecipe.id
+          )
+        );
         this.router.navigate(['/recipes']);
-        this.recipeService.recipesUpdate.next();
-      });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

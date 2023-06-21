@@ -222,8 +222,19 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onDelete() {
-    this.recipeService.deleteRecipe(this.recipeEdited.id);
-    this.router.navigate(['/recipes']);
+    this.recipeService.deleteRecipe(this.recipeEdited.id).subscribe({
+      next: () => {
+        this.recipeService.recipes$.next(
+          this.recipeService.recipes$.value.filter(
+            (r) => r.id !== this.recipeEdited.id
+          )
+        );
+        this.router.navigate(['/recipes']);
+      },
+      error: (err) => {
+        console.log("ERROR ON RECIPE EDIT COMPONENT", err);
+      },
+    });
   }
 
   onDeleteIngredient(ingredientIndex: number) {
